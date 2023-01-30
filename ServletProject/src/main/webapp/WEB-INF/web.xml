@@ -50,4 +50,28 @@
 		<url-pattern>/InitParam</url-pattern>
 	</servlet-mapping>
 	-->
+	
+	<!--  
+	<servlet>
+	<servlet-name>VisitInsert</servlet-name>
+	<servlet-class>com.bbs.VisitInsert</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VisitInsert</servlet-name>
+		<url-pattern>/VisitInsert</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>VisitList</servlet-name>
+	<servlet-class>com.bbs.VisitList</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VisitList</servlet-name>
+		<url-pattern>/VisitList</url-pattern>
+	</servlet-mapping>
+	-->
+	
+	<listener>
+	<listener-class>com.test.ContextListenerImpl</listener-class>
+	</listener>
 </web-app>
