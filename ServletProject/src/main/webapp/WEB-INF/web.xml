@@ -69,6 +69,7 @@
 		<servlet-name>VisitList</servlet-name>
 		<url-pattern>/VisitList</url-pattern>
 	</servlet-mapping>
+<<<<<<< HEAD
 	
 	-->
 
@@ -104,6 +105,8 @@
 	</error-page>
 	
 	
-	
-	
+	<listener>
+	<listener-class>com.test.ContextListenerImpl</listener-class>
+	</listener>
+
 </web-app>
