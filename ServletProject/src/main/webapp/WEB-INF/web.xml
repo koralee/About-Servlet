@@ -20,7 +20,7 @@
 	</servlet-mapping>
 	-->
 <!-- ======================================================== -->
-	<!--   
+	  
 	<context-param>
 		<param-name>company</param-name>
 		<param-value>GlobalIn</param-value>
@@ -30,7 +30,8 @@
 		<param-name>manager</param-name>
 		<param-value>김정섭</param-value>
 	</context-param>
-
+	
+<!--  
 	<servlet>
 		<servlet-name>InitParam</servlet-name>
 		<servlet-class>com.sample.InitParam</servlet-class>
@@ -69,8 +70,6 @@
 		<servlet-name>VisitList</servlet-name>
 		<url-pattern>/VisitList</url-pattern>
 	</servlet-mapping>
-<<<<<<< HEAD
-	
 	-->
 
 <!--  	
