@@ -8,7 +8,6 @@ request.setCharacterEncoding("UTF-8");
 <jsp:useBean id="customer" class="com.actiontag.Customer" scope="page" />
 <jsp:setProperty property="*" name="customer" />
 
-
 <!DOCTYPE html>
 <html>
 <head>
