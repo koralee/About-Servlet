@@ -8,8 +8,16 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
 Connection conn = null;
 Statement stmt = null;
 ResultSet rs = null;
-String id = "", passwd = "", name = "", mem_num1 = "", mem_num2 = "", e_mail = "", phone = "", zipcode = "",
-		address = "", job = "";
+String id = "",   // Setter 역할하는 부분
+	   passwd = "",
+	   name = "",
+	   mem_num1 = "",
+	   mem_num2 = "",
+	   e_mail = "",
+	   phone = "",
+	   zipcode = "",
+	   address = "",
+	   job = "";
 
 int counter = 0;
 
