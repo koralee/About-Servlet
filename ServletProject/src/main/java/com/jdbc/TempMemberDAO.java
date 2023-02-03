@@ -9,9 +9,7 @@ public class TempMemberDAO {
 	private final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private final String USER = "scott";
 	private final String PASSWD = "tiger";
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet rs = null;
+	
 	
 	
 	public TempMemberDAO() {
@@ -25,7 +23,9 @@ public class TempMemberDAO {
 	public Vector<TempMember> getMemberList(){
 		Vector<TempMember> VecList = new Vector<TempMember>();
 		
-		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
 			conn = DriverManager.getConnection(JDBC_URL, USER, PASSWD);
 			stmt = conn.createStatement();
