@@ -4,14 +4,12 @@ import java.sql.*;
 import java.util.*;
 
 public class TempMemberDAO {
-
+/*
 	private final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private final String USER = "scott";
 	private final String PASSWD = "tiger";
-	
-	
-	
+
 	public TempMemberDAO() {
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -19,16 +17,20 @@ public class TempMemberDAO {
 			System.out.println("Error : JDBC 드라이버 로딩 실패!!!");
 		} 
 	}
-
+*/
 	public Vector<TempMember> getMemberList(){
 		Vector<TempMember> VecList = new Vector<TempMember>();
 		
-		Connection conn = null;
+		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DriverManager.getConnection(JDBC_URL, USER, PASSWD);
-			stmt = conn.createStatement();
+			//conn = DriverManager.getConnection(JDBC_DRIVER, USER, "tiger");
+			
+			//ConnUtil co = new ConnUtil();
+			con = ConnUtil.getConnetcion();
+			
+			stmt = con.createStatement();
 			String sql = "select * from tempmember";
 			rs = stmt.executeQuery(sql);
 			
@@ -44,12 +46,9 @@ public class TempMemberDAO {
 				vo.setZipcode(rs.getString("zipcode"));
 				vo.setAddress(rs.getString("address"));
 				vo.setJob(rs.getString("job"));
-				
-				
+	
 				VecList.add(vo);
 			}
-			
-			
 			
 			
 		} catch (SQLException ss) {
@@ -71,18 +70,14 @@ public class TempMemberDAO {
 					ex.printStackTrace();
 				}
 
-			if (conn != null)
+			if (con != null)
 				try {
-					conn.close();
+					con.close();
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-
 			}
-		
-		
-		
-		
+
 		return VecList;
 	}
 	
