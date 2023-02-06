@@ -9,7 +9,7 @@
 <script type="text/javascript" src="script.js" ></script>
 </head>
 <body>
-	<form action="" method="post" name="regForm">
+	<form action="regProcess.jsp" method="post" name="regForm">
 		<table border="1">
 			<tr>
 				<td colspan="2" align="center">회원 가입정보 입력</td>
@@ -71,7 +71,7 @@
 				<td align="right">우편번호</td>
 				<td> 
 				<input type="text" name="zipcode">&nbsp;
-					<input type="button" value="검색" onclick="#">
+					<input type="button" value="찾기" onclick="zipCheck()">
 				</td>
 			</tr>
 			
@@ -91,7 +91,7 @@
 			
 			<tr>
 				<td colspan="2" align="center">
-				<input type="button" value="회원가입" onclick="#">&nbsp;&nbsp;
+				<input type="button" value="회원가입" onclick="inputCheck()">&nbsp;&nbsp;
 				<input type="reset" value="다시입력">	</td>
 			</tr>
 			

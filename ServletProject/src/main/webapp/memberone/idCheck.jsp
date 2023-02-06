@@ -28,6 +28,7 @@ if(check){
 	out.println("는 사용 가능합니다.<br><br>");
 }
 %>
+<a href="#" onclick="javascript:self.close()">닫기</a>
 </div>
 <form action=""></form>
 </body>
