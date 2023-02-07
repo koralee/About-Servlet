@@ -16,8 +16,8 @@ public class ConnUtil {
 			DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
 			con = ds.getConnection();
 
-		} catch (Exception e) {
-			System.out.println("Connection 생성 실패 !!!!");
+		} catch (Exception ne) {
+
 		} finally {
 
 		} 
