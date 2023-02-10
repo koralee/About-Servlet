@@ -1,23 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.boardone.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ include file="view/color.jsp"%>
 
-<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");%>
+<%!//한 페이지에서 보여줄 목록 수를 지정
+	int pageSize = 5;
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");%>
 
 <%
+String pageNum = request.getParameter("pageNum");
+
+//무엇을 검색할지
+String searchWhat = request.getParameter("searchWhat");
+
+//검색할 내용
+String searchText = request.getParameter("searchText");
+
+if (searchText != null) {
+	searchText = new String(searchText.getBytes("UTF-8"), "UTF-8");
+}
+
+if (pageNum == null) {
+	pageNum = "1";
+} //페이지 번호가 없으면 무조건 1로 초기화!
+
+//현재 페이지
+int currentPage = Integer.parseInt(pageNum);
+int startRow = (currentPage - 1) * pageSize + 1;
+int endRow = currentPage * pageSize;
+
 int count = 0;
 int number = 0;
 List<BoardVO> articleList = null;
 BoardDAO dbPro = BoardDAO.getInstance();
 
-count = dbPro.getArticleCount();// 전체 글수
-if (count > 0) {
-	articleList = dbPro.getArticles();
+// 검색이 아니면 전체 리스트를 보여주고
+// 검색이면 검색한 내용을 보여줌
+
+if (searchText == null) {// 전체 보여주기
+	count = dbPro.getArticleCount();// 전체 글수
+
+	if (count > 0) {
+		articleList = dbPro.getArticles(startRow, endRow);
+	}
+} else { // 검색일 경우 검색한 내용을 출력
+	count = dbPro.getArticleCount(searchWhat, searchText);
+
+	if (count > 0) {
+		articleList = dbPro.getArticles(searchWhat, searchText, startRow, endRow);
+	}
 }
-number = count;
+
+number = count - (currentPage - 1) * pageSize;
 %>
 
 <!DOCTYPE html>
@@ -34,8 +70,7 @@ number = count;
 
 		<table width="700">
 			<tr>
-				<td align="right" bgcolor="<%=value_c%>"><a
-					href="writeForm.jsp">글쓰기</a></td>
+				<td align="right" bgcolor="<%=value_c%>"><a href="writeForm.jsp">글쓰기</a></td>
 			</tr>
 		</table>
 		<%
@@ -50,8 +85,7 @@ number = count;
 		<%
 		} else {
 		%>
-		<table align="center" width="700" border="1" cellpadding="0"
-			cellspacing="0">
+		<table align="center" width="700" border="1" cellpadding="0" cellspacing="0">
 			<tr height="30" bgcolor="<%=value_c%>">
 				<td align="center" width="50">번호</td>
 				<td align="center" width="250">제목</td>
@@ -67,31 +101,32 @@ number = count;
 				BoardVO article = (BoardVO) articleList.get(i);
 			%>
 			<tr height="30">
-				<td align="center"><%=number--%></td><!-- number--는 내림차순(DB에서 desc)을 의미 -->
-				
+				<td align="center"><%=number--%></td>
+				<!-- number--는 내림차순(DB에서 desc)을 의미 -->
+
 				<td width="250">
-				<a href="content.jsp?num=<%=article.getNum()%>&pageNum=1"> 
-				<%=article.getSubject()%></a>
-				<% if(article.getReadcount() >= 20){ //조회수 20넘어가면 hot 그림이 붙게해놓음 %> 
-				<img src="img/hot.gif" border="0" height="16"><%} %>
+					<%
+					int wid = 0;
+					if (article.getDepth() > 0) {
+						wid = 5 * (article.getDepth());
+					%> <img src="img/level.gif" width="<%=wid%>" height="16"> <img src="img/re.gif"> <%
+ } else {
+ %> <img src="img/level.gif" width="<%=wid%>" height="16"> <%
+ }
+ %> <a href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>"> <%=article.getSubject()%></a> <%
+ if (article.getReadcount() >= 20) { //조회수 20넘어가면 hot 그림이 붙게해놓음
+ %> <img src="img/hot.gif" border="0" height="16"> <%
+ }
+ %>
 				</td>
-				
-				<td align="center" width="100">
-				<a href="mailto:<%=article.getEmail()%>">
-				<%=article.getWriter() %></a>
-				</td>
-				
-				<td align="center" width="150">
-					<%= sdf.format(article.getRegdate()) %>
-				</td>
-				
-				<td align="center" width="50">
-					<%= article.getReadcount() %>
-				</td>
-				
-				<td align="center" width="100">
-					<%= article.getIp() %>
-				</td>
+
+				<td align="center" width="100"><a href="mailto:<%=article.getEmail()%>"> <%=article.getWriter()%></a></td>
+
+				<td align="center" width="150"><%=sdf.format(article.getRegdate())%></td>
+
+				<td align="center" width="50"><%=article.getReadcount()%></td>
+
+				<td align="center" width="100"><%=article.getIp()%></td>
 			</tr>
 			<%
 			} //End for문
@@ -100,6 +135,76 @@ number = count;
 		<%
 		} //End if문
 		%>
+
+		<!-- 페이징 처리 -->
+		<%
+		if (count > 0) {
+			int pageBlock = 5;
+			int imsi = count % pageSize == 0 ? 0 : 1;
+			int pageCount = count / pageSize + imsi;
+
+			int startPage = ((currentPage - 1) / pageBlock) * pageBlock + 1;
+			int endPage = startPage + pageBlock - 1;
+
+			if (endPage > pageCount) {
+				endPage = pageCount;
+			}
+			if (startPage > pageBlock) {
+
+				// 검색일 경우와 검색이 아닌 경우의 페이징 처리
+				if (searchText == null) {
+		%>
+		<a href="list.jsp?pageNum=<%=startPage - pageBlock%>">[◀]</a>
+		<%
+		} else {
+		%>
+		<a href="list.jsp?pageNum=<%=startPage - pageBlock%>&searchWhat=<%=searchWhat%>&searchText=<%=searchText%>">[◀]</a>
+		<%
+		}
+		}
+		for (int i = startPage; i <= endPage; i++) {
+
+		//검색일 경우와 검색이 아닐경우
+		if (searchText == null) {// 검색이 아닐경우
+		%>
+		<a href="list.jsp?pageNum=<%=i%>">[<%=i%>]
+		</a>
+		<%
+		} else {// 검색일 경우
+		%>
+		<a href="list.jsp?pageNum=<%=i%>&searchWhat=<%=searchWhat%>&searchText=<%=searchText%>">[<%=i%>]
+		</a>
+		<%
+		}
+		}
+
+		if (endPage < pageCount) {
+		// 검색일 경우와 아닐경우
+		if (searchText == null) {
+		%>
+		<a href="list.jsp?pageNum=<%=startPage + pageBlock%>">[▶]</a>
+		<%
+		} else {
+		%>
+
+		<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&searchWhat=<%=searchWhat%>&searchText=<%=searchText%>">[▶]</a>
+		<%
+		}
+		}
+		}
+		%>
+
+		<!--  검색창 폼 -->
+		<form action="list.jsp">
+			<select name="searchWhat">
+				<option value="writer">작성자</option>
+				<option value="subject">제목</option>
+				<option value="content">내용</option>
+			</select> <input type="text" name="searchText"> <input type="submit" value="검색">
+		</form>
+
+
+
 	</div>
 </body>
 </html>

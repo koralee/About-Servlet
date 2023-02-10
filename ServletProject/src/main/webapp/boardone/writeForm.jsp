@@ -58,7 +58,7 @@ int num=0, ref=1, step=0, depth=0;
 					<%if(request.getParameter("num")==null){ //num이 null이면 새글!%>
 					<input type="text" size="12" maxlength="12" name="subject">
 					<%}else{ //num이 null 이 아니면 답변글%>
-					<input type="text" size="12" maxlength="12" name="[답변글]">
+					<input type="text" size="12" maxlength="12" name="subject" value="[답변글]">
 					<%}%>
 				</td>
 			</tr>

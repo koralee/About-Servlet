@@ -5,14 +5,14 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="article" class="com.boardone.BoardVO" scope="page">
-	<jsp:setProperty name="article" property="*" />
-</jsp:useBean>
 
 <%
+int num = Integer.parseInt(request.getParameter("num"));
 String pageNum = request.getParameter("pageNum");
+String pass = request.getParameter("pass");
+
 BoardDAO dbPro = BoardDAO.getInstance();
-int check = dbPro.updateArticle(article);
+int check = dbPro.deleteArticle(num, pass);
 if (check == 1) {
 %>
 

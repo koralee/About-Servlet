@@ -156,7 +156,7 @@ public class BoardDAO {
 	}
 
 	// 데이터 목록을 가져오는 메소드
-	public List<BoardVO> getArticles() {
+	public List<BoardVO> getArticles(int start, int end) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,12 +164,22 @@ public class BoardDAO {
 		int x = 0;
 		try {
 			conn = ConnUtil.getConnetcion();
-			String sql = "select * from board order by num desc";
+			// up 2
+			// String sql = "select * from board order by num desc";
+
+			// up3
+			String sql = "select * from (select rownum rnum, num, writer, email, "
+					+ "subject, passwd, regdate, readcount, ref, step, depth, content, "
+					+ "ip from(select * from board order by ref desc, step asc)) " + "where rnum >=? and rnum <=?";
+
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				articleList = new ArrayList<BoardVO>();
+				articleList = new ArrayList<BoardVO>(end - start + 1);// up 4
 				do {
 					BoardVO article = new BoardVO();
 					article.setNum(rs.getInt("num"));
@@ -362,19 +372,17 @@ public class BoardDAO {
 		int result = -1;
 
 		try {
-			
+
 			conn = ConnUtil.getConnetcion();
 			sql = "select passwd from board where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getNum());
-			rs=pstmt.executeQuery();
-			
-			
-			if(rs.next()) {
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
 				dbpasswd = rs.getString("passwd");
-				if(dbpasswd.equals(article.getPasswd())){
-					sql="update board set writer=?, email=?, "
-							+ "subject=?, content=? where num=?";
+				if (dbpasswd.equals(article.getPasswd())) {
+					sql = "update board set writer=?, email=?, " + "subject=?, content=? where num=?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, article.getWriter());
 					pstmt.setString(2, article.getEmail());
@@ -383,16 +391,13 @@ public class BoardDAO {
 					pstmt.setInt(5, article.getNum());
 					pstmt.executeUpdate();
 					result = 1; // 글 수정 성공
-					
-				}else{
+
+				} else {
 					result = 0; // 글 수정 실패
 				}
-				
+
 			}
-			
-			
-			
-			
+
 		} catch (Exception se) {
 			se.printStackTrace();
 		} finally {
@@ -419,4 +424,188 @@ public class BoardDAO {
 		}
 		return result;
 	}
+
+	/*
+	 * 글 삭제
+	 * 
+	 * 글 삭제처리를 하려면 입력받은 비밀번호와 데이터베이스에 저장된 비밀번호를 비교하여 같으면 삭제처리한다. 글삭제 성공 :1 , 비밀번호 오류
+	 * :0 , 삭제할 글이 존재하지 않으면 : -1
+	 */
+
+	public int deleteArticle(int num, String pass) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbpasswd = "";
+
+		String sql = "";
+		int result = -1;
+
+		try {
+
+			conn = ConnUtil.getConnetcion();
+			sql = "select passwd from board where num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dbpasswd = rs.getString("passwd");
+				if (dbpasswd.equals(pass)) {
+					sql = "delete from board where num=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.executeUpdate();
+					result = 1; // 글 수정 성공
+				} else {
+					result = 0; // 글 수정 실패
+				}
+
+			}
+
+		} catch (Exception se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return result;
+	}
+
+	// 검색한 내용이 몇개인지를 반환하는 함수(what은 검색조건 , content는 검색내용)
+	public int getArticleCount(String what, String content) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int x = 0;
+		try {
+			conn = ConnUtil.getConnetcion();
+			String sql = "select count(*) from board where " +what+ " like '%" +content+ "%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				x = rs.getInt(1);
+			}
+
+		} catch (Exception se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return x;
+	}
+
+	// 검색한 내용을 List로 받아서 반환하는 함수(what은 검색조건 , content는 검색내용, Start는 시작번호, end는 끝번호 )
+	public List<BoardVO> getArticles(String what, String content, int start, int end) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardVO> articleList = null;
+		int x = 0;
+		try {
+			conn = ConnUtil.getConnetcion();
+			// up 2
+			// String sql = "select * from board order by num desc";
+
+			// up3
+			String sql = "select * from (select rownum rnum, num, writer, email, "
+					+ "subject, passwd, regdate, readcount, ref, step, depth, content, "
+					+ "ip from (select * from board where "+what+" like '%"+content+"%' order by ref desc, step asc)) " 
+					+ "where rnum >=? and rnum <=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleList = new ArrayList<BoardVO>(end - start + 1);// up 4
+				do {
+					BoardVO article = new BoardVO();
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setEmail(rs.getString("email"));
+					article.setSubject(rs.getString("subject"));
+					article.setPasswd(rs.getString("passwd"));
+					article.setRegdate(rs.getTimestamp("regdate"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setRef(rs.getInt("ref"));
+					article.setStep(rs.getInt("step"));
+					article.setDepth(rs.getInt("depth"));
+					article.setContent(rs.getString("content"));
+					article.setIp(rs.getString("ip"));
+
+					articleList.add(article);
+				} while (rs.next());
+			}
+
+		} catch (Exception se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return articleList;
+	}// End articleList
+
 }
