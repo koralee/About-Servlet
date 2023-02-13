@@ -108,4 +108,8 @@
 	<listener-class>com.test.ContextListenerImpl</listener-class>
 	</listener>
 
+	<session-config>
+	<session-timeout>1</session-timeout><!-- 분으로 설정 1이면 1분 // 10이면 10분 -->
+	</session-config>
+
 </web-app>
