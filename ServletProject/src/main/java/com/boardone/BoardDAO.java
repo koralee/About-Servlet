@@ -11,6 +11,7 @@ import java.util.List;
 import com.jdbc.ConnUtil;
 
 public class BoardDAO {
+	
 	private static BoardDAO instance = null;
 
 	private BoardDAO() {
