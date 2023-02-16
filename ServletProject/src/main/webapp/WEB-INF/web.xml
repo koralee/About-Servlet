@@ -112,5 +112,12 @@
 	<session-config>
 	<session-timeout>1</session-timeout><!-- 분으로 설정 1이면 1분 // 10이면 10분 -->
 	</session-config>
+	
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/tlds/el-functions.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/el-functions.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 
 </web-app>
