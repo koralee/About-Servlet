@@ -1,4 +1,4 @@
-package mvc.control;
+package mvcmem.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,15 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mvc.action.Action;
-
-//@WebServlet("*.do")
+@WebServlet("*.mdo")
 public class ControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 		
 		String cmd = request.getParameter("cmd");
 		if(cmd != null) {
@@ -41,7 +38,7 @@ public class ControlServlet extends HttpServlet {
 				out.println("<head><title>Error</title></head>");
 				out.println("<body>");
 				out.println("<h4>올바른 요청 방식이 아닙니다.</h4>");
-				out.println("<h4>http://localhost:9090/mvc/test.do?cmd=요청키워드</h4>");
+				out.println("<h4>http://localhost:9090/mvcmem/member.mdo?cmd=요청키워드</h4>");
 				out.println("</body>");
 				out.println("</html>");
 
