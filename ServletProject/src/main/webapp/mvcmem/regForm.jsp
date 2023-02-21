@@ -9,7 +9,7 @@
 <script type="text/javascript" src="script.js" ></script>
 </head>
 <body>
-	<form action="regProcess.jsp" method="post" name="regForm">
+	<form action="member.mdo?cmd=regProcess" method="post" name="regForm">
 		<table border="1">
 			<tr>
 				<td colspan="2" align="center">회원 가입정보 입력</td>

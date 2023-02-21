@@ -17,10 +17,11 @@ pageEncoding="UTF-8" import="mvcmem.model.StudentDAO"%>
 	<div align="center">
 		<b>${id}</b>
 		<c:if test="${check eq true }">
-				는 이미 존재하는 ID입니다.
+			는(은) 이미 존재하는 ID입니다.
 				<br><br>
 		</c:if>
-		<c:if test="${check ne true }">는 사용가능 ID입니다.
+		<c:if test="${check ne true }">
+		는(은) 사용가능 ID입니다.
 		<br><br>
 		</c:if>
 
