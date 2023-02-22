@@ -21,10 +21,10 @@
 			<tr>
 				<td align="right">아이디</td>
 				<td> 
-				<input type="text" name="id" value="${id }">
+				<input type="hidden" name="id" value="${id }">
 				<c:out value="${id }"/>
 				</td>
-			</tr>
+			</tr>	
 			
 			<tr>
 				<td align="right">비밀번호</td>
@@ -36,7 +36,7 @@
 			<tr>
 				<td align="right">비밀번호 확인</td>
 				<td> 
-				<input type="password" name="repass" value="${pass }%>">
+				<input type="password" name="repass" value="${pass }">
 				</td>
 			</tr>
 			

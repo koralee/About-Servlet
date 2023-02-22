@@ -1,11 +1,14 @@
 package mvcmem.control;
 
+import mvcmem.action.DeleteFormAction;
+import mvcmem.action.DeleteProcessAction;
 import mvcmem.action.IdCheckAction;
 import mvcmem.action.IndexAction;
 import mvcmem.action.LoginFormAction;
 import mvcmem.action.LoginProcessAction;
 import mvcmem.action.LogoutAction;
 import mvcmem.action.ModifyFormAction;
+import mvcmem.action.ModifyProcessAction;
 import mvcmem.action.RegFormAction;
 import mvcmem.action.RegProcessAction;
 import mvcmem.action.ZipCheckAction;
@@ -61,6 +64,18 @@ private static ActionFactory factory;
 			
 		case "modifyForm":
 			action = new ModifyFormAction();
+			break;
+			
+		case "modifyProcess":
+			action = new ModifyProcessAction();
+			break;
+			
+		case "deleteForm":
+			action = new DeleteFormAction();
+			break;
+			
+		case "deleteProcess":
+			action = new DeleteProcessAction();
 			break;
 			
 			
