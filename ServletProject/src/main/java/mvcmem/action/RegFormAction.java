@@ -12,8 +12,8 @@ public class RegFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		return new ActionForward("/mvcmem/regForm.jsp",false);
+		// TODO Auto-generated method stub
+		return new ActionForward("/mvcmem/regForm.jsp", false);
 	}
 
 }

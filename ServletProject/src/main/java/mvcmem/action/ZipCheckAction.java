@@ -9,28 +9,28 @@ import javax.servlet.http.HttpServletResponse;
 import mvcmem.control.Action;
 import mvcmem.control.ActionForward;
 import mvcmem.model.StudentDAO;
-import mvcmem.model.ZipcodeVO;
+import mvcmem.model.ZipCodeVO;
 
 public class ZipCheckAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		request.setCharacterEncoding("UTF-8");
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		StudentDAO dao = StudentDAO.getInstance();
+		
+		 String check = request.getParameter("check");
+	      String dong =  request.getParameter("dong");
 
-		String check = request.getParameter("check");
-		String dong = request.getParameter("dong");
-
-		Vector<ZipcodeVO> zipcodeList = dao.zipcodeRead(dong);
-		int totalList = zipcodeList.size();
-
-		request.setAttribute("check", check);
-		request.setAttribute("dong", dong);
-		request.setAttribute("zipcodeList", zipcodeList);
-		request.setAttribute("totalList", totalList);
-
-		return new ActionForward("/mvcmem/zipCheck.jsp", false);
+	      Vector<ZipCodeVO> zipcodeList = dao.zipcodeRead(dong);
+	      int totalList = zipcodeList.size();
+		
+		  request.setAttribute("check",check);
+		  request.setAttribute("dong",dong);
+		  request.setAttribute("zipcodeList",zipcodeList);
+		  request.setAttribute("totalList",totalList);
+	      
+		  return new ActionForward("/mvcmem/zipCheck.jsp", false);
 	}
 
 }

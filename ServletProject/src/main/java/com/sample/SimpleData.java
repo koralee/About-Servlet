@@ -1,7 +1,7 @@
 package com.sample;
 
 public class SimpleData {
-	
+
 	private String message;
 
 	public String getMessage() {
@@ -11,4 +11,6 @@ public class SimpleData {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	
 }

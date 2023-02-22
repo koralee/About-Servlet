@@ -10,31 +10,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Destination
- */
-@WebServlet("/Destination")
+
+//@WebServlet("/Destination")
 public class Destination extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("text/html;charset=utf-8");
 		
 		PrintWriter out = response.getWriter();
+		
 		try {
-			out.println("<html>");
-			out.println("<head><title>Destination</title><head>");
-			out.println("<body>");
 			
-			out.println("<h1>Destination Servlet 입니다.</h1>");
+			out.println("<html>");
+			out.println("<head><title>Destination</title></head>");
+			out.println("<body>");
+						
+			out.println("<h1> Destination Servlet 입니다. </h1>");
 			out.println("</body>");
 			out.println("</html>");
-			
 		}finally {
 			out.close();
 		}
-	}
 	
+	
+	
+		
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
@@ -42,5 +46,6 @@ public class Destination extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
+
 
 }

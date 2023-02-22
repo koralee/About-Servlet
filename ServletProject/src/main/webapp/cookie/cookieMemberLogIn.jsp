@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ include file="color.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="color.jsp" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,29 +10,36 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="<%=bodyback_c%>">
-	<form action="cookieMemberLogInOk.jsp" method="post">
-		<table width="300" border="1" align="center">
-			<tr>
-				<td colspan="2" bgcolor="<%=title_c%>" align="center">회원 로그인</td>
-			</tr>
+   <form action="cookieMemberLogInOK.jsp" method="post">
+    
+    <table width="300" border="1" align="center">
+     <tr>
+         <td colspan="2" bgcolor="<%=title_c%>" 
+         align="center">회원 로그인</td>
+     </tr>
+     
+     <tr>
+        <td align="right" width="100" bgcolor="<%=title_c%>">아이디</td>
+        <td width="200" bgcolor="<%=value_c%>">&nbsp;&nbsp;
+        <input type="text" name="id" size="20"></td>
+     </tr>
+     
+     <tr>
+        <td align="right" width="100" bgcolor="<%=title_c%>">비밀번호</td>
+        <td width="200" bgcolor="<%=value_c%>">&nbsp;&nbsp;
+        <input type="password" name="passwd" size="20"></td>
+     </tr>
+     
+     <tr>
+           <td colspan="2" align="center">
+                <input type="submit" value="로그인">&nbsp;&nbsp;
+                <input type="reset" value="다시작성">       
+           </td>
+     </tr>
+     
+</table>
+   
+   </form>
 
-			<tr>
-				<td align="right" width="100" bgcolor="<%=title_c%>">아이디</td>
-				<td width="200" bgcolor="<%=value_c%>">&nbsp;&nbsp; 
-				<input type="text" name="id" size="20"></td>
-			</tr>
-
-			<tr>
-				<td align="right" width="100"bgcolor="<%=title_c%>">비밀번호</td>
-				<td width="200" bgcolor="<%=value_c%>">&nbsp;&nbsp; 
-				<input type="password" name="passwd" size="20"></td>
-			</tr>
-
-			<tr>
-				<td colspan="2" align="center"><input type="submit" value="로그인">&nbsp;&nbsp; 
-				<input type="reset" value="다시 작성"></td>
-			</tr>
-			</table>
-			</form>
 </body>
 </html>

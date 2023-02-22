@@ -8,6 +8,6 @@
 </head>
 <body>
 <h3 align="center">Index Page 입니다.</h3>
-<h3 align="center">저의 홈페이지에 오신것을 환영합니다.</h3>
+<h3 align="center">저의 홈페이제 오신것을 환영합니다.</h3>
 </body>
 </html>

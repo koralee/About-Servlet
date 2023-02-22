@@ -1,18 +1,17 @@
 package com.memberone;
 
 public class StudentVO {
-	
-	private String id="";
-	private String pass="";
-	private String name="";
-	private String phone1="";
-	private String phone2="";
-	private String phone3="";
-	private String email="";
-	private String zipcode="";
-	private String address1="";
-	private String address2="";
-	
+
+	private String id;
+	private String pass;
+	private String name;
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
 	public String getId() {
 		return id;
 	}
@@ -73,6 +72,5 @@ public class StudentVO {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
-	
 	
 }

@@ -9,23 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Source")
+
+//@WebServlet("/Source")
 public class Source extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("Source Start ....");
-		//page 이동
-		//1. forward 방식으로 이동
+		// 페이지 이동
+		// 1. forward 방식으로 이동
 		//RequestDispatcher view = request.getRequestDispatcher("Destination");
 		//view.forward(request, response);
 		
-		//2. redirect 방식으로 이동
-		response.sendRedirect("Destination");
+		// 2. redirect 방식으로 이동
+		 response.sendRedirect("Destination");
 		
 	}
-	
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
@@ -33,4 +34,5 @@ public class Source extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
+
 }

@@ -5,18 +5,17 @@ public class ActionForward {
 	private String url;
 	private boolean redirect;
 	
-	public ActionForward() {}
+	public ActionForward() {	}
 	
-	public ActionForward(String url) {
+	public ActionForward(String url) { this.url=url;	}
+	
+	public ActionForward(String url,boolean redirect) {
 		this.url=url;
-	}
-	public ActionForward(String url, boolean redirect) {
-		this.url=url;
-		this.redirect=redirect;
+		this.redirect= redirect;
 	}
 
 	
-	//getter & setter
+	
 	public String getUrl() {
 		return url;
 	}
@@ -32,5 +31,5 @@ public class ActionForward {
 	public void setRedirect(boolean redirect) {
 		this.redirect = redirect;
 	}
-
+	
 }

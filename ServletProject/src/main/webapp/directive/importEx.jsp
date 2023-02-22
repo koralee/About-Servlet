@@ -7,11 +7,11 @@
 <title></title>
 </head>
 <body>
-<% 
-	Calendar cal = Calendar.getInstance();
+<%
+     Calendar cal = Calendar.getInstance();
 %>
-	오늘은	<%=cal.get(cal.YEAR) %>년
-			<%=cal.get(cal.MONTH)+1 %>월
-			<%=cal.get(cal.DATE) %>일
+ 오늘은  <%= cal.get(cal.YEAR) %>년
+          <%= cal.get(cal.MONTH)+1%>월
+           <%=cal.get(cal.DATE) %>일
 </body>
 </html>

@@ -1,62 +1,25 @@
-@charset "UTF-8";
-
-body {
-	font-size: 9pt;
-	color: black;
-	line-height: 160%;
-	font-family: 궁서체, verdana, tahome;
+BODY {
+	FONT-SIZE: 9pt; COLOR: black; LINE-HEIGHT: 160%; FONT-FAMILY: 궁서체,verdana,tahoma
+}
+TD {
+	FONT-SIZE: 9pt; COLOR: black; LINE-HEIGHT: 160%; FONT-FAMILY: 궁서체,verdana,tahoma
+}
+SELECT {
+	FONT-SIZE: 9pt; COLOR: black; LINE-HEIGHT: 160%; FONT-FAMILY: 궁서체,verdana,tahoma
+}
+DIV {
+	FONT-SIZE: 9pt; COLOR: black; LINE-HEIGHT: 160%; FONT-FAMILY: 궁서체,verdana,tahoma
+}
+FORM {
+	FONT-SIZE: 9pt; COLOR: black; LINE-HEIGHT: 160%; FONT-FAMILY: 궁서체,verdana,tahoma
+}
+TEXTAREA {
+	BORDER-RIGHT: 1px solid #999999; BORDER-TOP: 1px solid #999999; FONT-SIZE: 9pt; BORDER-LEFT: 1px solid #999999 ; COLOR: BLACK; BORDER-BOTTOM: 1px solid #999999; FONT-FAMILY: 궁서체,verdana; BACKGROUND-COLOR: white
+}
+INPUT {
+	BORDER-RIGHT: 1px solid #999999; BORDER-TOP: 1px solid #999999; FONT-SIZE: 9pt; BORDER-LEFT: 1px solid #999999; COLOR: BLACK; BORDER-BOTTOM: 1px solid #999999; FONT-FAMILY: 궁서체,verdana; HEIGHT: 19px; BACKGROUND-COLOR: white
 }
 
-td {
-	font-size: 9pt;
-	color: black;
-	line-height: 160%;
-	font-family: 궁서체, verdana, tahome;
-}
-
-select {
-	font-size: 9pt;
-	color: black;
-	line-height: 160%;
-	font-family: 궁서체, verdana, tahome;
-}
-
-div {
-	font-size: 9pt;
-	color: black;
-	line-height: 160%;
-	font-family: 궁서체, verdana, tahome;
-}
-
-form {
-	font-size: 9pt;
-	color: black;
-	line-height: 160%;
-	font-family: 궁서체, verdana, tahome;
-}
-
-textarea {
-	border-right: 1px solid #999;
-	border-top: 1px solid #999;
-	border-left: 1px solid #999;
-	border-bottom: 1px solid #999;
-	font-size: 9pt;
-	color: black;
-	font-family: 궁서체, verdana, tahome;
-	background-color: white;
-}
-
-input {
-	border-right: 1px solid #999;
-	border-top: 1px solid #999;
-	border-left: 1px solid #999;
-	border-bottom: 1px solid #999;
-	font-size: 9pt;
-	color: black;
-	font-family: 궁서체, verdana, tahome;
-	background-color: white;
-}
-
-a:link{text-decoration: none; color: #696969;}
-a:hover{text-decoration: yes; color: #6CF;}
-a:visited{text-decoration: none; color: #306;}
+A:link {text-decoration:none;color:#696969}
+A:hover{text-decoration:yes;color:#66CCFF}
+A:visited {text-decoration:none;color:#330066}

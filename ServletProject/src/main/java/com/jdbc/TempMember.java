@@ -1,16 +1,17 @@
 package com.jdbc;
 
 public class TempMember {
-    private	String id = "";
-    private	String passwd = ""; 
-    private	String name = ""; 
-    private	String mem_num1 = ""; 
-    private	String mem_num2 = ""; 
-    private	String e_mail = ""; 
-    private	String phone = ""; 
-    private	String zipcode = "";
-    private	String address = ""; 
-    private	String job = "";
+   
+	private	String id;
+    private	String passwd;
+    private	String name;
+    private	String mem_num1;
+    private	String mem_num2;
+    private	String e_mail;
+    private	String phone;
+    private	String zipcode;
+    private	String address;
+    private	String job;
 	public String getId() {
 		return id;
 	}
@@ -71,7 +72,5 @@ public class TempMember {
 	public void setJob(String job) {
 		this.job = job;
 	}
-    
-    
     
 }

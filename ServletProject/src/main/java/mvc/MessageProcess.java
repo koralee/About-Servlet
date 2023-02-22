@@ -2,8 +2,7 @@ package mvc;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-//Controller로 부터 작업의 처리를 지시받아서 작업을 처리하는 클래스
+//Controller 로부터 작업의 처리를 지시받아서 작을 처리하는 클래스
 public class MessageProcess implements CommandProcess {
 
 	@Override

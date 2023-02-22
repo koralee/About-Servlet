@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +9,10 @@
 </head>
 <body>
 <c:forTokens var="token" 
-items="빨강색, 주황색. 노랑색/ 초록색. 파랑색. 남색, 보라색/진노랑/찐짬뽕"
-delims=",./">
-	${token}<br>
+items="빨강색,주황색.노랑색.초록색,파랑색,남색.보라색진노랑"
+ delims=",./">
+${token }
 </c:forTokens>
+
 </body>
 </html>
