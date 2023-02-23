@@ -34,12 +34,28 @@ public class ListAction implements CommandAction {
 		   int count = 0;
 		   int number = 0;
 		   
+		   String find = null;
+		   String find_box = null;
+		   
+		   find = request.getParameter("find");
+		   find_box = request.getParameter("find_box");
+		   
+		   if(find == null) {
+			   find = "no";
+		   }
+		   if(find_box == null) {
+			   find_box = "no";
+		   }
+		   
+		   
+		   
 		   List<BoardVO> articleList = null;
 		   BoardDAO dbPro = BoardDAO.getInstance();
-		   count = dbPro.getArticleCount();
+		   
+		   count = dbPro.getArticleCount(find,find_box);
 		   
 		   if(count > 0) {// 현재 페이지에 해당하는 글 목록
-			   articleList = dbPro.getArticles(startRow, endRow);
+			   articleList = dbPro.getArticles(find,find_box,startRow, endRow);
 		   }else {
 			   articleList = Collections.emptyList();
 		   }
@@ -54,6 +70,8 @@ public class ListAction implements CommandAction {
 		   request.setAttribute("pageSize", new Integer(pageSize));
 		   request.setAttribute("number", new Integer(number));
 		   request.setAttribute("articleList", articleList);
+		   request.setAttribute("find",new String(find));
+		   request.setAttribute("find_box",new String(find_box));
 		
 		   return "/boardtwo/list.jsp"; 
 	}

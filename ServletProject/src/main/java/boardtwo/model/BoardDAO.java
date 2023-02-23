@@ -451,10 +451,10 @@ public class BoardDAO {
 	}// end delete
 	
 	
-	/*
+	
 	
 	// 검색한 내용이 몇개인지를 반환하는 함수(what:검색조건, content:검색내용)
-	public int getArticleCount(String what, String content) {
+	public int getArticleCount(String find, String find_box) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -463,8 +463,17 @@ public class BoardDAO {
 		
 		try {
 			conn = ConnUtil.getConnection();
-			String sql="select count(*) from board where "+what+" like '%"+content+"%'" ;
-			pstmt = conn.prepareStatement(sql);
+			if(find.equals("writer")) {
+				pstmt = conn.prepareStatement("select count(*) from board where writer like '%"+find_box+"%'");
+			}else if(find.equals("subject")) {
+				pstmt = conn.prepareStatement("select count(*) from board where subject like '%"+find_box+"%'");
+			}else if(find.equals("content")) {
+				pstmt = conn.prepareStatement("select count(*) from board where content like '%"+find_box+"%'");
+			}else {
+				pstmt = conn.prepareStatement("select count(*) from board");
+			}
+			
+			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				x = rs.getInt(1);
@@ -494,7 +503,7 @@ public class BoardDAO {
 	}
 	
 	// 검색한 내용을  리스트로 받아서 반환하는 함수(what:검색조건, content:검색내용, start, end)
-	public List<BoardVO> getArticles(String what, String content, int start, int end){
+	public List<BoardVO> getArticles(String find, String find_box, int start, int end){
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -505,16 +514,42 @@ public class BoardDAO {
 			conn = ConnUtil.getConnection();
 			// up 2
 			//String sql="select * from board order by num desc";// up3
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("select * from ");
+			sql.append("(select rownum rnum, num, writer, email, subject, pass, regdate, readcount, ref, step, depth, content, ip from ");
+			if(find.equals("writer")) {
+				sql.append("(select * from board where writer like '%"+find_box+"%' order by ref desc, step asc)) where rnum >=? and rnum <=?");
+
+				pstmt = conn.prepareStatement(sql.toString());
+
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);				
+
+			}else if(find.equals("subject")) {
+				sql.append("(select * from board where subject like '%"+find_box+"%' order by ref desc, step asc)) where rnum >=? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);				
+			}else if(find.equals("content")) {
+				sql.append("(select * from board where content like '%"+find_box+"%' order by ref desc, step asc)) where rnum >=? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);				
+			}else {
+				sql.append("(select * from board order by ref desc, step asc)) where rnum >=? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);	
+			}
+			
+			/*
 			String sql="select * from (select rownum rnum, num, writer, email, "
 					+ "subject, pass, regdate, readcount, ref, step, depth, content, "
 					+ "ip from (select * from board where "+what+" like '%"+content+"%' order by ref desc, step asc)) "
 					+ "where rnum >=? and rnum <=?";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
+			*/
+	
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -564,13 +599,7 @@ public class BoardDAO {
 		return articleList;
 	}// end articleList
 	
-	*/
-	
-	
-	
-	
-	
-	
+
 	
 	
 }
